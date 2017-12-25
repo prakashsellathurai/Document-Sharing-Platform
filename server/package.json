@@ -1,0 +1,23 @@
+{
+    "name": "nbeings_backend_api",
+    "version": "1.0.0",
+    "description": "backend_api",
+    "main": "index.js",
+    "scripts": {
+      "test": "nodemon index.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://gitlab.com/prakashsellathurai/nbeings.git"
+    },
+    "author": "prakash",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://gitlab.com/prakashsellathurai/nbeings/issues"
+    },
+    "homepage": "https://gitlab.com/prakashsellathurai/nbeings#README",
+    "dependencies": {
+      "arangojs": "^5.8.0"
+    }
+  }
+  
