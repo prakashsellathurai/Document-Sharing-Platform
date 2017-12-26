@@ -3,15 +3,7 @@
 ////////////////////////////////
 ////LIBRARIES AND DATABASE DRIVERS
 //////////////////////////////
-var promises = require('promises');
-var Database = require("arangojs");
- var connection = new Database({
-    url:'127.0.0.1:8529',
-    name: 'nbeings',
-    username: 'root',
-    password: '1729'}); 
-              // configure server
-  
+
 
   ////////////////////////////////////////////////////////////////////////////////
 /// An express app:
@@ -95,7 +87,7 @@ app.route('/signup')
   };
   con.addUser(user)
     .then(
-      function (result) { console.log(result);  },
+      function (result) { res.redirect('/')  },
       function (err) {
         console.error('Something went wrong:', err);
         res.send("There was a problem adding the information to the database. " + err);

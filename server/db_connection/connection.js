@@ -15,8 +15,10 @@ databaseName:'nbeings'});
   module.exports = {
    addUser : function(user)
       {
-          return db.listCollections();
-       //collection = db.collection('users');
+          return db.listCollections()
+.then(function(res){
+    console.log(res);
+});       //collection = db.collection('users');
        //  return  collection.save(user);
       }
     }
