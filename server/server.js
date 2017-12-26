@@ -3,6 +3,15 @@
 ////////////////////////////////
 ////LIBRARIES AND DATABASE DRIVERS
 //////////////////////////////
+var promises = require('promises');
+var Database = require("arangojs");
+ var connection = new Database({
+    url:'127.0.0.1:8529',
+    name: 'nbeings',
+    username: 'root',
+    password: '1729'}); 
+              // configure server
+  
 
   ////////////////////////////////////////////////////////////////////////////////
 /// An express app:
@@ -27,14 +36,14 @@ app.use(bodyParser.json());
 var router = express.Router(); 
 
 // route middleware that will happen on every request
-router.use(function(req, res, next) {
+//router.use(function(req, res, next) {
 
   // log each request to the console
-  console.log(req.method, req.url);
+  //console.log(req.method, req.url);
 
   // continue doing what we were doing and go to the route
-  next(); 
-});
+  //next(); 
+//});
 // apply the routes to our application
 app.use('/', router);
 
@@ -60,7 +69,16 @@ app.route('/login')
 	.post(function(req, res) {
 	
     res.send('processing the login form!');
-    router.post('/login',login.login);
+     // var today = new Date();
+    //var users={
+     // "email":req.body.email,
+      //"password":req.body.password
+    //}
+    //connection.query('INSERT ${users} INTO local').then
+    //(function(cursor){
+     //   res.send(cursor);
+    //});
+    
     
 	});
 app.route('/signup')
@@ -68,9 +86,29 @@ app.route('/signup')
    res.send("get form under construction:)");
  })
  .post(function(req,res){
-  router.post('/signup',login.signup);
- })
+  var today = new Date();
+  var users={
+   
+    "email":req.query.email,
+    "password":req.query.password,
+  }
+  connection.query('INSERT ${users} INTO local').then((cursor)=>{
+    return cursor.next().then(function(results){
+      console.log('The solution is: ', results);
+      res.send({
+        "code":200,
+        "success":"user registered sucessfully"
+  
+    });
+  } ).catch(function(err){
+    console.log("error ocurred",error);
+    res.send({
+      "code":400,
+      "failed":"error ocurred"
+
+  });
 //
+  })) );
 
 
 

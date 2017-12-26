@@ -9,7 +9,8 @@ var Database = require("arangojs");
 
 var login = require('./routes/loginRoutes')
 if (server_addr !== "none") {
-    var db = new Database({
+    console.log("req",req.body);
+        var db = new Database({
     url:server_addr,
     name: 'nbeings',
     username: 'root',
