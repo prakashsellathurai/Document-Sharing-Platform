@@ -3,22 +3,11 @@
 ////////////////////////////////
 ////LIBRARIES AND DATABASE DRIVERS
 //////////////////////////////
-var server_addr = process.env.ARANGODB_SERVER ? process.env.ARANGODB_SERVER : 'http://localhost:8529';
-//var ignore = console.log("Using DB-Server " + server_addr);
-var Database = require("arangojs");
 
-if (server_addr !== "none") {
-    var db = new Database({
-    url:server_addr,
-    name: 'nbeings',
-    username: 'root',
-    password: '1729'}); 
-              // configure server
-  }
   ////////////////////////////////////////////////////////////////////////////////
 /// An express app:
 ////////////////////////////////////////////////////////////////////////////////
-
+var login = require('./routes/loginRoutes');
 var express = require('express');
 var app = express();
 var bodyParser  = require('body-parser');
@@ -27,7 +16,7 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 // =======================
 // configuration =========
 // =======================
-var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
+var port = process.env.PORT || 8000; // used to create, sign, and verify tokens
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,28 +24,58 @@ app.use(bodyParser.json());
 // API ROUTES -------------------
 
 // get an instance of the router for api routes
-var apiRoutes = express.Router(); 
+var router = express.Router(); 
 
+// route middleware that will happen on every request
+router.use(function(req, res, next) {
 
-// TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
+  // log each request to the console
+  console.log(req.method, req.url);
 
-// TODO: route middleware to verify a token
-
-// route to show a random message (GET http://localhost:8080/api/)
-apiRoutes.get('/', function(req, res) {
-  res.json({ message: 'Welcome to the coolest API on earth!' });
+  // continue doing what we were doing and go to the route
+  next(); 
 });
+// apply the routes to our application
+app.use('/', router);
 
-// route to return all users (GET http://localhost:8080/api/users)
-apiRoutes.get('/users', function(req, res) {
-  User.find({}, function(err, users) {
-    res.json(users);
-  });
-});   
+// test route
+router.get('/', function(req, res) {
+  res.json({ message: 'welcome to our upload module apis' });
+ 
+});
+//route to handle user registration
+
+// apply the routes to our application
+app.use('/', router);
+
+// login routes
+app.route('/login')
+
+	// show the form (GET http://localhost:8080/login)
+	.get(function(req, res) {
+		res.send('this is the login form');
+	})
+
+	// process the form (POST http://localhost:8080/login)
+	.post(function(req, res) {
+	
+    res.send('processing the login form!');
+    router.post('/login',login.login);
+    
+	});
+app.route('/signup')
+ .get(function(req,res){
+   res.send("get form under construction:)");
+ })
+ .post(function(req,res){
+  router.post('/signup',login.signup);
+ })
+//
+
 
 
 // =======================
 // start the server ======
 // =======================
 app.listen(port);
-console.log('Magic happens at http://localhost:' + port);
+console.log('server @ url http://localhost:' + port);
