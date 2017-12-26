@@ -21,11 +21,11 @@ var express = require('express');
 var app = express();
 var bodyParser  = require('body-parser');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-
+var con=require('./db_connection/connection');
 // =======================
 // configuration =========
 // =======================
-var port = process.env.PORT || 8000; // used to create, sign, and verify tokens
+var port = process.env.PORT || 8100; // used to create, sign, and verify tokens
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -86,30 +86,23 @@ app.route('/signup')
    res.send("get form under construction:)");
  })
  .post(function(req,res){
-  var today = new Date();
-  var users={
-   
-    "email":req.query.email,
-    "password":req.query.password,
-  }
-  connection.query('INSERT ${users} INTO local').then((cursor)=>{
-    return cursor.next().then(function(results){
-      console.log('The solution is: ', results);
-      res.send({
-        "code":200,
-        "success":"user registered sucessfully"
-  
-    });
-  } ).catch(function(err){
-    console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
 
-  });
-//
-  })) );
-
+  console.log("↓↓↓↓ Add New User ↓↓↓↓");  
+  // Get our form values. These rely on the "name" attributes   
+  var user = {
+    "email": req.query.email,
+    "password": req.query.password
+  };
+  con.addUser(user)
+    .then(
+      function (result) { console.log(result);  },
+      function (err) {
+        console.error('Something went wrong:', err);
+        res.send("There was a problem adding the information to the database. " + err);
+      }
+      );
+ }
+);
 
 
 // =======================

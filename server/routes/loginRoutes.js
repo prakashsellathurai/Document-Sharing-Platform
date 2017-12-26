@@ -3,20 +3,9 @@
 ////////////////////////////////
 ////LIBRARIES AND DATABASE DRIVERS
 //////////////////////////////
-var server_addr = process.env.ARANGODB_SERVER ? process.env.ARANGODB_SERVER : 'http://localhost:8529';
-//var ignore = console.log("Using DB-Server " + server_addr);
-var Database = require("arangojs");
 
 
-if (server_addr !== "none") {
-    var connection = new Database({
-    url:server_addr,
-    name: 'nbeings',
-    username: 'root',
-    password: '1729'}); 
-              // configure server
-  }
-
+var connection 
 exports.signup = function(req,res){
     // console.log("req",req.body);
     var today = new Date();
