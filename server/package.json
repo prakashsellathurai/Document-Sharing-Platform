@@ -18,6 +18,8 @@
   "homepage": "https://gitlab.com/prakashsellathurai/nbeings#README",
   "dependencies": {
     "arangojs": "^5.8.0",
-    "express": "^4.16.2"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0"
   }
 }
