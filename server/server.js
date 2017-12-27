@@ -1,14 +1,14 @@
 // =======================
 // get the packages we need ============
 // =======================
-var express     = require('express');
-var app         = express();
-var bodyParser  = require('body-parser');
-var morgan      = require('morgan');
+const express     = require('express');
+const app         = express();
+const bodyParser  = require('body-parser');
+const morgan      = require('morgan');
 
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
-var routes = require('./routes/loginRoutes')
+const routes = require('./routes/loginRoutes')
 var database = require('arangojs');
 var db = new database({url:config.database});
 

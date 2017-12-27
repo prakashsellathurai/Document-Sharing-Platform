@@ -3,7 +3,7 @@
 // =======================
 // basic route
 const routes = require('express').Router();
-
+const db_service = require('../services/db_services');
 routes.get('/', function(req, res) {
   res.status(200).json({ message: 'Connected!' });
 });
@@ -27,7 +27,9 @@ routes.route('/signup')
         }
       )
       .post((req,res)=>{
-         res.json({message:'processimg the post signup form'});
+        
+         var msg= db_service.addUser(req.query);
+          res.json({message:msg}); 
       });
   //process the form (post  )
 module.exports = routes;
