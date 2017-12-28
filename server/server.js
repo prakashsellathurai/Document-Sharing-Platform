@@ -8,7 +8,7 @@ const morgan      = require('morgan');
 
 const jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
-const routes = require('./routes/loginRoutes')
+const routes = require('./routes/routes')
 var database = require('arangojs');
 var db = new database({url:config.database});
 
@@ -28,10 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/',routes);
+ 
 
 
 // =======================
 // start the server ======
 // =======================
 app.listen(port);
-console.log('Magic happens at http://localhost:' + port);
+console.log('server happens at http://localhost:' + port);
