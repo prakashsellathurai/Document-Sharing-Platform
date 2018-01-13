@@ -6,11 +6,13 @@ var logger = require('morgan')
 var helmet = require('helmet')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-var passport = require('passport')
-var jwt = require('jwt-simple')
+// var jwt = require('jsonwebtoken') // used to create, sign, and verify tokens
 var compression = require('compression')
 
 var index = require('./routes/index')
+
+// app.set('superSecret', config.secret) // secret variable
+//
 // app.use
 app.use(helmet())
 app.use(logger('dev'))
@@ -19,7 +21,6 @@ app.use(bodyParser.json())
 app.use(compression())
 app.use(cookieParser())
 app.disable('x-powered-by')
-
 // catch 404 and forward to error handler
 /* app.use(function (req, res, next) {
   var err = new Error('Not Found')
@@ -33,7 +34,6 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization')
   next()
 })
-app.use(passport.initialize())
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -47,4 +47,5 @@ app.use(function (err, req, res, next) {
 })
 
 app.use('/', index)
+
 module.exports = app

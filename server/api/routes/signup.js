@@ -9,12 +9,12 @@ router.route('/signup')
                  })
 
                  .post(function (req, res, next) {
-                   var user = {
+                   var signupData = {
                      email: req.query.email.toLowerCase(), // CONVERT THE DATA TO LOWER CASE
                      password: req.query.password.toLowerCase()
                    }
 
-                   signUpHandler(user).then(msg => {
+                   signUpHandler(signupData).then(msg => {
                      res.json({ msg: msg })
                    })
                  })

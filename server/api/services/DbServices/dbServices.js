@@ -32,8 +32,38 @@ module.exports = {
         // something went wrong or
         // the document does not exist
     }
+  },
+  ifUserSignInValid: (email, password) => {
+    try {
+      return db.query(aqlQuery`
+                    FOR doc IN ${userCollection}
+                    FILTER doc.email == ${email} AND  doc.password == ${password}
+                    RETURN doc
+                    `)
+                    .then(doc => {
+                      if ((doc._result.length) > 0) return true
+                      else return false
+                    })
+    } catch (error) {
+      // return 'error occured'
+        // something went wrong or
+        // the document does not exist
+    }
+  },
+  GetUserCredentials: (email, password) => {
+    try {
+      return db.query(aqlQuery`
+                      FOR doc IN ${userCollection}
+                      FILTER doc.email == ${email} AND  doc.password == ${password}
+                      RETURN doc
+                      `)
+                      .then(
+                        id => { return id },
+                        error => { return 'api error' }
+                      )
+    } catch (err) {
+      return 'server api error'
+    }
   }
-  ,
-  checkuser
 
 }
