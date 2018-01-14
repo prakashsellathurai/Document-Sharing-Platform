@@ -1,7 +1,7 @@
 var routerLib = require('../libraries/library')
 var router = routerLib.router
 
-var routeHandler = require('../services/RouteServices/routeHandler')
+var routeHandler = require('../services/RouteServices/User-Route-Services/SignInService')
 var signInHandler = routeHandler.signInHandler
 
 router.route('/signin')
@@ -10,8 +10,8 @@ router.route('/signin')
       })
       .post(function (req, res, next) {
         var signInData = {
-          email: req.query.email,
-          password: req.query.password
+          email: req.headers.email.toLowerCase(), // convert to lower case
+          password: req.headers.password.toLowerCase()
         }
         signInHandler(signInData).then(msg => {
           res.json({msg: msg})

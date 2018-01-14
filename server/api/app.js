@@ -1,7 +1,6 @@
 var express = require('express')
 var app = express()
 
-var path = require('path')
 var logger = require('morgan')
 var helmet = require('helmet')
 var cookieParser = require('cookie-parser')

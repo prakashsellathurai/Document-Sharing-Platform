@@ -1,4 +1,6 @@
-var dbConfig = require('../../db_config')
+'use-strict'
+
+var dbConfig = require('../../../db_config')
 var db = dbConfig.db
 var aqlQuery = dbConfig.aqlQuery
 var userCollection = dbConfig.collection.user
@@ -9,7 +11,7 @@ module.exports = {
     try {
       return userCollection.save(user)
                                   .then(result => {
-                                    if (typeof result === 'object') { return 'user added successfully' } else return 'user is not added try again'
+                                    return (typeof result === 'object') ? 'user added successfully' : 'user is not added try again'
                                   })
     } catch (err) {
       return 'error occured to user data  sorry for the inconvience'
@@ -41,8 +43,8 @@ module.exports = {
                     RETURN doc
                     `)
                     .then(doc => {
-                      if ((doc._result.length) > 0) return true
-                      else return false
+                  //    if ((doc._result.length) > 0) return 'hacked    /*this line return the fake data entered illegally into our database*/
+                      return (doc._result.length === 1) ? doc._result : false
                     })
     } catch (error) {
       // return 'error occured'
@@ -57,10 +59,7 @@ module.exports = {
                       FILTER doc.email == ${email} AND  doc.password == ${password}
                       RETURN doc
                       `)
-                      .then(
-                        id => { return id },
-                        error => { return 'api error' }
-                      )
+                      .then(id => { return id }, error => { return 'api error' })
     } catch (err) {
       return 'server api error'
     }

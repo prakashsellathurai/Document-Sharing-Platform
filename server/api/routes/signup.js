@@ -1,6 +1,6 @@
 var routerLib = require('../libraries/library')
 var router = routerLib.router
-var routeHandler = require('../services/RouteServices/routeHandler')
+var routeHandler = require('../services/RouteServices/User-Route-Services/SighUpService')
 var signUpHandler = routeHandler.signUpHandler
 
 router.route('/signup')
@@ -10,8 +10,8 @@ router.route('/signup')
 
                  .post(function (req, res, next) {
                    var signupData = {
-                     email: req.query.email.toLowerCase(), // CONVERT THE DATA TO LOWER CASE
-                     password: req.query.password.toLowerCase()
+                     email: req.headers.email.toLowerCase(), // CONVERT THE DATA TO LOWER CASE
+                     password: req.headers.password.toLowerCase()
                    }
 
                    signUpHandler(signupData).then(msg => {
