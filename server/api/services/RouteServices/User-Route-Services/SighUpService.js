@@ -1,5 +1,5 @@
 'use strict'
-var dbService = require('../../Db-Services/User-Db-Services/UserdbServices')
+var dbService = require('../../Db-Services/User-Db-Services/UserAuthdbServices')
 
 module.exports = {
 

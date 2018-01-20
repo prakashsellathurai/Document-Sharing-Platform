@@ -3,17 +3,16 @@
 var dbConfig = require('../../../db_config')
 var db = dbConfig.db
 var aqlQuery = dbConfig.aqlQuery
-var userCollection = dbConfig.collection.user
-// exports for database services
+var users = dbConfig.vertices.Users
 
 module.exports = {
   SaveUser: (user) => {    // FUNCTION TO SAVE USER COLLECTION
     try {
-      return userCollection.save(user)
-                                  .then(result => {
-                                    return (typeof result === 'object') ? 'user added successfully' : 'user is not added try again'
-                                  })
+      return users.save(user).then(result => {
+        return (typeof result === 'object') ? 'user added successfully' : 'user is not added try again'
+      })
     } catch (err) {
+      // console.log(e + 'in' + __filename)
       return 'error occured to user data  sorry for the inconvience'
     }
   },
@@ -21,7 +20,7 @@ module.exports = {
   ifEmailAlreadyExist: (email) => {
     try {
       return db.query(aqlQuery`
-                       FOR doc IN ${userCollection}
+                       FOR doc IN ${users}
                        FILTER doc.email == ${email}
                        RETURN doc
                           `)
@@ -38,7 +37,7 @@ module.exports = {
   ifUserSignInValid: (email, password) => {
     try {
       return db.query(aqlQuery`
-                    FOR doc IN ${userCollection}
+                    FOR doc IN ${users}
                     FILTER doc.email == ${email} AND  doc.password == ${password}
                     RETURN doc
                     `)
@@ -55,7 +54,7 @@ module.exports = {
   GetUserCredentials: (email, password) => {
     try {
       return db.query(aqlQuery`
-                      FOR doc IN ${userCollection}
+                      FOR doc IN ${users}
                       FILTER doc.email == ${email} AND  doc.password == ${password}
                       RETURN doc
                       `)
@@ -64,5 +63,4 @@ module.exports = {
       return 'server api error'
     }
   }
-
 }

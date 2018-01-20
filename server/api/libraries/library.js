@@ -10,11 +10,23 @@ module.exports = (function () {
   var bodyParser = require('body-parser')
   var passport = require('passport')
   var jwt = require('jwt-simple')
+
   var lib = {
     express: express,
     app: app,
     router: router,
-    CircularJSON: CircularJSON
+    CircularJSON: CircularJSON,
+    chooseType: (types, type) => {
+      var object
+      for (var i = 0, iLen = types.length; i < iLen; i++) {
+        object = types[i]
+        if (object.name === type) {
+          return object.name
+        } else {
+          return 'Post'
+        }
+      }
+    }
   }
 
   return lib
