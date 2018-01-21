@@ -1,10 +1,10 @@
 
 'use-strict'
 
-var dbConfig = require('../../../db_config')
+var dbConfig = require('../../../config/db_config')
 var db = dbConfig.db
 var aqlQuery = dbConfig.aqlQuery
-var createdBy = dbConfig.Created_by
+var createdBy = dbConfig.edges.Created_by
 module.exports = {
   ReadAllCreatedThings: () => {
     try {

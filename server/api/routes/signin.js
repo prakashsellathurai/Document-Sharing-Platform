@@ -14,7 +14,7 @@ router.route('/signin')
           password: req.headers.password.toLowerCase()
         }
         signInHandler(signInData).then(msg => {
-          res.json({msg: msg})
+          res.json({result: msg})
         })
       })
 

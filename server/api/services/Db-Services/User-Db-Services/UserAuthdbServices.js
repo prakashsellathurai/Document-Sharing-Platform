@@ -1,9 +1,9 @@
 'use-strict'
 
-var dbConfig = require('../../../db_config')
+var dbConfig = require('../../../config/db_config')
 var db = dbConfig.db
 var aqlQuery = dbConfig.aqlQuery
-var users = dbConfig.vertices.Users
+var users = dbConfig.vertices.User
 
 module.exports = {
   SaveUser: (user) => {    // FUNCTION TO SAVE USER COLLECTION
@@ -39,7 +39,7 @@ module.exports = {
       return db.query(aqlQuery`
                     FOR doc IN ${users}
                     FILTER doc.email == ${email} AND  doc.password == ${password}
-                    RETURN doc
+                    RETURN {email:doc.email,password:doc.password,Id:doc._id}
                     `)
                     .then(doc => {
                   //    if ((doc._result.length) > 0) return 'hacked    /*this line return the fake data entered illegally into our database*/
@@ -58,7 +58,7 @@ module.exports = {
                       FILTER doc.email == ${email} AND  doc.password == ${password}
                       RETURN doc
                       `)
-                      .then(id => { return id }, error => { return 'api error' })
+                      .then(id => { return id }, error => { return (error) ? 'api error' : 'problem with sign in' })
     } catch (err) {
       return 'server api error'
     }

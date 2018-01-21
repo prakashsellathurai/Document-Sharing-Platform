@@ -1,5 +1,5 @@
 'use strict'
-var dbConfig = require('../../db_config')
+var dbConfig = require('../../config/db_config')
 var db = dbConfig.db
 async function Query (q, bv) {
   try {
@@ -12,8 +12,7 @@ async function Query (q, bv) {
        )
   } catch (err) {
     console.error(err)
-  }
-  return result
+  } return result
 }
 
 module.exports = Query

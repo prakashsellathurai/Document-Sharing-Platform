@@ -1,10 +1,11 @@
 'use-strict'
-var dbConfig = require('../../../db_config')
+var dbConfig = require('../../../config/db_config')
 var db = dbConfig.db
-var CreatedBy = dbConfig.edges.Created_by
 var aqlQuery = dbConfig.aqlQuery
-var Topic = dbConfig.vertices.Topics
-var is_Related_to = dbConfig.edges.is_Related_to
+var Topic = dbConfig.vertices.Topic
+var CreatedTheTopic = dbConfig.edges.CreatedTheTopic
+var CreatedTheType = dbConfig.edges.CreatedTheType
+var HasTopic = dbConfig.edges.HasTopic
 module.exports = {
   saveTopic: async(postedTopic) => {
     var topic = {
@@ -37,15 +38,17 @@ module.exports = {
     //  var Type = dbConfig.selectType(type)
      // console.log(savedtopic)
       var time = { timestamp: timestamp }
-      var userIdString = 'users/' + userId
+      var userIdString = 'User/' + userId
 
-      var TopicToUserEdge = await CreatedBy.save(time, userIdString, savedtopic._id)
-      var TypeToUserSdge = await CreatedBy.save(time, userIdString, savedtype._result[0]._id)
-      var relatedToEdge = await is_Related_to.save(time, savedtype._result[0]._id, savedtopic._id)
+      var TopicToUserEdge = await CreatedTheTopic.save(time, userIdString, savedtopic._id)
+      var TypeToUserEdge = await CreatedTheType.save(time, userIdString, savedtype._result[0]._id)
+      var relatedToEdge = await HasTopic.save(time, savedtype._result[0]._id, savedtopic._id)
       return {
-        topicInfo: TopicToUserEdge,
-        typeInfo: TypeToUserSdge,
-        relation: relatedToEdge
+       /* data: 'working on it' */
+        topicToUserEdgeInfo: {topicId: TopicToUserEdge},
+        postToUserEdgeInfo: {postId: TypeToUserEdge},
+        topictopostEdge: {relation_Id: relatedToEdge}
+
       }
     } catch (e) {
       console.log(e)

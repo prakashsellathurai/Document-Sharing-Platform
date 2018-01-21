@@ -5,8 +5,9 @@ router.route('/users/:Id/create')
    .post(function (req, res, next) {
      var body = req.body
      var time = new Date()
-     routeServices.CreateService(body.topic, body.type, req.params.Id, body.data, time)
-     .then(dbResult => { res.json({msg: dbResult}) })
-   })
 
+     routeServices.CreateService(body.topic, body.type, req.params.Id, body.data, time)
+     .then(dbResult => { res.json({result: dbResult}) })
+   })
+ 
 module.exports = router
