@@ -2,7 +2,7 @@
 var dbService = require('../../Db-Services/User-Db-Services/UserAuthdbServices')
 var security = require('../../../libraries/security')
 var generateAuthtoken = security.generatekAuthToken
-var verifyAuthToken = security.verifyAuthToken
+
 module.exports = {
   signInHandler: (signInData) => {
     var email = signInData.email

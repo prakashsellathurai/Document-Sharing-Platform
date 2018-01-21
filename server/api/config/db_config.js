@@ -59,9 +59,9 @@ module.exports = (function () {
     }
   }
   var edges = {
-    CreatedTheTopic: 'Created-The-Topic',
-    HasTopic: 'Has-Topic',
-    CreatedTheType: 'Created-The-Type'
+    'CreatedTheTopic': CreatedTheTopic,
+    'HasTopic': HasTopic,
+    'CreatedTheType': CreatedTheType
   }
 
   /* varaiables to export */

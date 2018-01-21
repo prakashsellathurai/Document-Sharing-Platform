@@ -6,10 +6,11 @@ var Topic = dbConfig.vertices.Topic
 var CreatedTheTopic = dbConfig.edges.CreatedTheTopic
 var CreatedTheType = dbConfig.edges.CreatedTheType
 var HasTopic = dbConfig.edges.HasTopic
+
 module.exports = {
   saveTopic: async(postedTopic) => {
     var topic = {
-      topic: postedTopic,
+      topic: postedTopic.toLowerCase(),
       created_at: new Date()
     }
   //  var existence = await Topic.firstExample(postedTopic)// db.query(aqlQuery`FOR u IN ${Topic} FILTER u.topic == ${postedTopic} RETURN u`)

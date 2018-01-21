@@ -1,14 +1,15 @@
 'use strict'
 // var makeQuery = require('../DbServices/query')
-var dbService = require('../Db-Services/dbServices')
+var ListdbService = require('../Db-Services/Listing-Db-services/ListAllUsers')
 // exports for routes
 module.exports = {
 
   indexHandler: (data) => {
 
   },
-  userHandler: (data) => {
-
+  userHandler: async() => {
+    var results = await ListdbService.listAllUsers()
+    return results
   },
   orgHandler: (data) => {
 

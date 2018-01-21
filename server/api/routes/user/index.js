@@ -1,11 +1,20 @@
 'use-strict'
 var routerLib = require('../../libraries/library')
 var router = routerLib.router
+
+var listingDbService = require('../../services/RouteServices/routeHandler')
 var create = require('./create')
 var read = require('./read')
 /* GET users listing. */
 
-router.route('/users/:Id')
+router.route('/User')
+.get(function (req, res, next) {
+  listingDbService.userHandler().then(results => {
+    res.json({userList: results})
+  })
+})
+
+router.route('/User/:Id')
    .get(function (req, res, next) {
        // '/user/' route
      res.json({from: req.params})
@@ -13,7 +22,7 @@ router.route('/users/:Id')
    .post(function (req, res, next) {
      res.json({from: req.params})
    })
-router.route('/users/:Id/create', create)
-router.route('/users/:Id/read', read)
+router.route('/User/:Id/create', create)
+router.route('/User/:Id/read', read)
 
 module.exports = router

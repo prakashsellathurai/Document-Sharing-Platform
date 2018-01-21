@@ -5,6 +5,7 @@ var dbConfig = require('../../../config/db_config')
 var db = dbConfig.db
 var aqlQuery = dbConfig.aqlQuery
 var createdBy = dbConfig.edges.Created_by
+var User = dbConfig.vertices.User
 module.exports = {
   ReadAllCreatedThings: () => {
     try {
