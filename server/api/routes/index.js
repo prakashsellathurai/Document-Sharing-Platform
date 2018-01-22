@@ -14,7 +14,7 @@ router.route('/')
    .post(function (req, res, next) {
      res.json({msg: 'connection success'})  // index '/' route post request
    })
-router.use('/org', org)
+router.use('/Org', org)
 router.use('/User', user)
 router.use('/signin', signin)
 router.use('/signup', signup)

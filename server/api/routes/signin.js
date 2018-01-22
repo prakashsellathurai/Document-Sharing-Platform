@@ -9,13 +9,23 @@ router.route('/signin')
         res.json({msg: 'sign in via GET not supported :)'})   // index `/` route get request
       })
       .post(function (req, res, next) {
-        var signInData = {
-          email: req.headers.email.toLowerCase(), // convert to lower case
-          password: req.headers.password.toLowerCase()
+        var postedEmail = req.headers.email
+        var postedPassword = req.headers.password
+        res.json({msg: req})
+
+        if (!postedEmail) res.json({msg: 'provide email please'})
+        else if (!postedPassword) res.json({mg: 'provide the password'})
+        else if (postedEmail && postedPassword) {
+          var signInData = {
+            email: postedEmail.toLowerCase(), // convert to lower case
+            password: postedPassword.toLowerCase()
+          }
+          signInHandler(signInData).then(msg => {
+            res.json({result: msg})
+          })
+        } else {
+          res.json({'msg': 'server error'})
         }
-        signInHandler(signInData).then(msg => {
-          res.json({result: msg})
-        })
       })
 
 module.exports = router
