@@ -15,7 +15,7 @@ module.exports = (function () {
   var dbUserpassword = '1729'
 
   /* db connection variables */
-  const aqlQuery = Database.aqlQuery
+  const aqlQuery = Database.aql
   const db = new Database({url: url})
   db.useBasicAuth(dbUser, dbUserpassword)
   db.useDatabase(dbName)

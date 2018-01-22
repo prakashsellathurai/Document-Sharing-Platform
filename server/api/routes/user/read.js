@@ -1,11 +1,22 @@
 var routerLib = require('../../libraries/library')
 var router = routerLib.router
-var ReadRouteServices = require('../../services/RouteServices/User-Route-Services/Read-Service-for-User')
-router.route('/users/:Id/read')
+var ReadUser = require('../../services/Db-Services/Listing-Db-services/ListAllUsers')
+router.route('/User/:Id/read')
 .get(function (req, res, next) {
-
+  ReadUser.listAllUsers().then(results => {
+    res.json({'msg': results})
+  })
 })
+router.route('/User/read')
+.get(function (req, res, next) {
+  ReadUser.listAllUsers().then(results => {
+    res.json({'msg': results})
+  })
+})
+
 router.route('/read')
 .get(function (req, res, next) {
-  ReadRouteServices.readAll().then(results => res.json({query: results}))
+  ReadUser.listAllUsers().then(results => {
+    res.json({'msg': results})
+  })
 })

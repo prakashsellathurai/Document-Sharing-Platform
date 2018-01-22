@@ -7,7 +7,7 @@ module.exports = {
   listAllUsers: () => {
     try {
       return db.query(aqlQuery`FOR users In ${User}
-                                       RETURN {"userId":users._id,"emailId":users.email}`)
+                               RETURN {"userId":users._id,"emailId":users.email}`)
                                        .then(results => results.all())
     } catch (e) {
       console.log(e)
