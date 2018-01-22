@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 
+var cors = require('cors')
 var logger = require('morgan')
 var helmet = require('helmet')
 var cookieParser = require('cookie-parser')
@@ -10,6 +11,16 @@ var compression = require('compression')
 
 var index = require('./routes/index')
 
+var originsWhitelist = [
+  'http://localhost:8100'     // this is my front-end url for developmen
+]
+var corsOptions = {
+  origin: function (origin, callback) {
+    var isWhitelisted = originsWhitelist.indexOf(origin) !== -1
+    callback(null, isWhitelisted)
+  },
+  credentials: true
+}
 // app.set('superSecret', config.secret) // secret variable
 //
 // app.use
@@ -20,6 +31,7 @@ app.use(bodyParser.json())
 app.use(compression())
 app.use(cookieParser())
 app.disable('x-powered-by')
+app.use(cors(corsOptions)) // for development
 // catch 404 and forward to error handler
 /* app.use(function (req, res, next) {
   var err = new Error('Not Found')
@@ -28,8 +40,7 @@ app.disable('x-powered-by')
 }) */
 app.use(function (req, res, next) {
   // Enabling CORS
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT')
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,POST,PUT')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization')
   next()
 })
