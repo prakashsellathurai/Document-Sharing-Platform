@@ -10,7 +10,7 @@ var HasTopic = dbConfig.edges.HasTopic
 module.exports = {
   saveTopic: async(postedTopic) => {
     var topic = {
-      topic: postedTopic.toLowerCase(),
+      topic: postedTopic,
       created_at: new Date()
     }
   //  var existence = await Topic.firstExample(postedTopic)// db.query(aqlQuery`FOR u IN ${Topic} FILTER u.topic == ${postedTopic} RETURN u`)
