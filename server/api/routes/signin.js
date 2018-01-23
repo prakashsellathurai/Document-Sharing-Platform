@@ -9,12 +9,10 @@ router.route('/signin')
         res.json({msg: 'sign in via GET not supported :)'})   // index `/` route get request
       })
       .post(function (req, res, next) {
-        res.json({msg: req})
-        var postedEmail = req.body.email
-        var postedPassword = req.body.password
-
-        if (!postedEmail) res.json({msg: 'provide email please'})
-        else if (!postedPassword) res.json({mg: 'provide the password'})
+        var postedEmail = req.headers.email
+        var postedPassword = req.headers.password
+        if (!postedEmail) res.json({result: {msg: 'provide email please'}})
+        else if (!postedPassword) res.json({result: {msg: 'provide the password'}})
         else if (postedEmail && postedPassword) {
           var signInData = {
             email: postedEmail.toLowerCase(), // convert to lower case
