@@ -1,13 +1,25 @@
 'use-strict'
 var routerLib = require('../../libraries/library')
 var router = routerLib.router
-var routeServices = require('../../services/RouteServices/User-Route-Services/create-Service-for-user')
-// var tokenAuthService = require('../../services/RouteServices/User-Route-Services/User-Auth-Token-Verification-service')
-var security = require('../../libraries/security')
+var createDo = require('./create/createDo')
+var createDont = require('./create/createDont')
+var createPro = require('./create/createPro')
+var createCon = require('./create/createCon')
+var createChallenge = require('./create/createChallenge')
+var createEvent = require('./create/createEvent')
 
 router.route('/User/:Id/create')
    .post(function (req, res, next) {
-     try {
+     res.json({from: '/User/' + req.params})
+   })
+router.route('/User/:Id/create/Do', createDo)
+router.route('/User/:Id/create/Dont', createDont)
+router.route('/User/:Id/create/Pro', createPro)
+router.route('/User/:Id/create/Con', createCon)
+router.route('/User/:Id/create/Challenge', createChallenge)
+router.route('/User/:Id/create/Event', createEvent)
+module.exports = router
+/*    try {
        // varaiables
        var body = (req.body) ? req.body : null
        var time = new Date()
@@ -34,7 +46,4 @@ router.route('/User/:Id/create')
        }
      } catch (e) {
        console.log(e)
-     }
-   })
-
-module.exports = router
+     } */

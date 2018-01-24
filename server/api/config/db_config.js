@@ -43,7 +43,11 @@ module.exports = (function () {
   var vertices = {
     'User': User,
     'Org': Org,
-    'Topic': Topic
+    'Topic': Topic,
+    'Do': Do,
+    'Dont': Dont,
+    'Pro': Pro,
+    'Con': Con
   }
   var types = [Do, Dont, Pro, Con]
   var selectType = (type) => {

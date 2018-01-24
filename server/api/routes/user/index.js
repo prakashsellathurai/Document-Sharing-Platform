@@ -17,10 +17,11 @@ router.route('/User')
 router.route('/User/:Id')
    .get(function (req, res, next) {
        // '/user/' route
-     res.json({from: req.params})
+     console.log(true)
+     res.json({from: '/User/' + req.params})
    })
    .post(function (req, res, next) {
-     res.json({from: req.params})
+     res.json({from: '/User/' + req.params})
    })
 router.route('/User/:Id/create', create)
 router.route('/User/:Id/read', read)

@@ -26,9 +26,10 @@ module.exports = {
     var token = jwt.sign(payload, secret)
     return token
   },
-  verifyAuthToken: (token) => {
+  verifyAuthToken: async(token) => {
     if (token) {
-      return decode(token)
+      var Id = await decode(token)
+      return Id
     } else {
         // if there is no token
         // return an error
