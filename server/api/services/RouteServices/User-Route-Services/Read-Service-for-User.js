@@ -1,5 +1,5 @@
 'use-strict'
-var dbReadService = require('../../Db-Services/User-Db-Services/UserReadDbService')
+var dbReadService = require('../../Db-Services/Listing-Db-services/ListAllUsers')
 module.exports = {
   readAll: () => {
    // return dbReadService.ReadAllCreatedThings().then(results => results).catch(e => console.log(e))

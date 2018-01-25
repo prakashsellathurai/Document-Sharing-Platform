@@ -7,10 +7,11 @@ router.route('/User/:Id/read')
     res.json({'msg': results})
   })
 })
-router.route('/User/read')
+router.route('/User/:Id/read/:type')
 .get(function (req, res, next) {
-  ReadUser.listAllUsers().then(results => {
-    res.json({'msg': results})
+  console.log(req.params.type)
+  ReadUser.listPost(req.params.type).then(r => {
+    res.json(r)
   })
 })
 
